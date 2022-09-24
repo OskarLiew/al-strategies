@@ -9,14 +9,7 @@ from al_strats.ensemble_metrics import (
     ensemble_classification_entropy,
 )
 from al_strats.uncertainty_metrics import least_confidence
-from tests.common import approx
-
-
-CONFIDENCE_3D = [  # Shape: (items, classes, models)
-    [[0.7, 0.8], [0.1, 0.1], [0.2, 0.1]],
-    [[0.5, 0.2], [0.4, 0.1], [0.1, 0.7]],
-    [[0.33, 0.9], [0.33, 0.09], [0.34, 0.01]],
-]
+from tests.common import approx, CONFIDENCE_3D
 
 
 def test_uncertainty_rank_order() -> None:
@@ -32,7 +25,7 @@ def test_rank_elements() -> None:
 
 def test_lowest_maximum_confidence() -> None:
     lmc = lowest_maximum_confidence(CONFIDENCE_3D)
-    assert approx(lmc, [0.7, 0.5, 0.34])
+    assert approx(lmc, [0.3, 0.5, 0.66])
 
 
 def test_max_min_confidence_margin() -> None:

@@ -70,7 +70,7 @@ def lowest_maximum_confidence(confidences: npt.ArrayLike) -> npt.NDArray:
     """
     confidences = np.atleast_3d(confidences)
     max_confidences = np.max(confidences, axis=1)  # Most confident prediction
-    return np.min(max_confidences, axis=1)  # Minimum of model confidences
+    return 1 - np.min(max_confidences, axis=1)  # Minimum of model confidences
 
 
 def max_min_confidence_margin(confidences: npt.ArrayLike) -> npt.NDArray:
