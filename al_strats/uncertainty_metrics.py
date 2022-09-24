@@ -7,10 +7,10 @@ def least_confidence(confidence: npt.ArrayLike) -> npt.NDArray:
 
     Args:
         confidence (npt.ArrayLike): Prediction confidence with as a 2D
-                array-like object (items, class_confidence)
+                array-like object (n_items, n_classes)
 
     Returns:
-        npt.NDArray: rray with shape (items, )
+        npt.NDArray: rray with shape (n_items, )
     """
     confidence = np.atleast_2d(confidence)
     return 1 - np.max(confidence, axis=1)
@@ -21,10 +21,10 @@ def margin_of_confidence(confidence: npt.ArrayLike) -> npt.NDArray:
 
     Args:
         confidence (npt.ArrayLike): Prediction confidence with as a 2D
-                array-like object (items, class_confidence)
+                array-like object (n_items, n_classes)
 
     Returns:
-        npt.NDArray: rray with shape (items, )
+        npt.NDArray: rray with shape (n_items, )
     """
     confidence = np.atleast_2d(confidence)
     sorted_confidence = np.sort(confidence, axis=1)  # asc
@@ -36,10 +36,10 @@ def ratio_of_confidence(confidence: npt.ArrayLike) -> npt.NDArray:
 
     Args:
         confidence (npt.ArrayLike): Prediction confidence with as a 2D
-                array-like object (items, class_confidence)
+                array-like object (n_items, n_classes)
 
     Returns:
-        npt.NDArray: rray with shape (items, )
+        npt.NDArray: rray with shape (n_items, )
     """
     confidence = np.atleast_2d(confidence)
     sorted_confidence = np.sort(confidence, axis=1)
@@ -51,10 +51,10 @@ def classification_entropy(confidence: npt.ArrayLike) -> npt.NDArray:
 
     Args:
         confidence (npt.ArrayLike): Prediction confidence with as a 2D
-                array-like object (items, class_confidence)
+                array-like object (n_items, n_classes)
 
     Returns:
-        npt.NDArray: rray with shape (items, )
+        npt.NDArray: rray with shape (n_items, )
     """
     confidence = np.atleast_2d(confidence)
     logs = np.log2(confidence)

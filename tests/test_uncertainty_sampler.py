@@ -11,6 +11,7 @@ from al_strats.ensemble_metrics import (
     max_min_confidence_margin,
     max_min_confidence_ratio,
     ensemble_classification_entropy,
+    kl_max_divergence,
 )
 from tests.common import CONFIDENCE, CONFIDENCE_3D
 
@@ -74,3 +75,9 @@ def test_uncertainty_sampler_ensemble_entropy() -> None:
     sampler = UncertaintySampler(ensemble_classification_entropy)
     sample_idx = sampler(CONFIDENCE_3D)
     assert sample_idx.tolist() == [1]
+
+
+def test_uncertainty_sampler_kl_max_div() -> None:
+    sampler = UncertaintySampler(kl_max_divergence)
+    sample_idx = sampler(CONFIDENCE_3D)
+    assert sample_idx.tolist() == [2]

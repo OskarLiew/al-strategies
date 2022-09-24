@@ -7,6 +7,7 @@ from al_strats.ensemble_metrics import (
     max_min_confidence_margin,
     max_min_confidence_ratio,
     ensemble_classification_entropy,
+    kl_max_divergence,
 )
 from al_strats.uncertainty_metrics import least_confidence
 from tests.common import approx, CONFIDENCE_3D
@@ -41,3 +42,8 @@ def test_max_min_confidence_ratio() -> None:
 def test_ensemble_classification_entropy() -> None:
     mmcr = ensemble_classification_entropy(CONFIDENCE_3D)
     assert approx(mmcr, [2.079, 2.518, 2.101], abs=1e-3)
+
+
+def test_kl_max_divergence() -> None:
+    kl_max_div = kl_max_divergence(CONFIDENCE_3D)
+    assert approx(kl_max_div, [0.011, 0.228, 0.238], abs=1e-3)
