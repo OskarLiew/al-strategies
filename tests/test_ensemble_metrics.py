@@ -6,6 +6,7 @@ from al_strats.ensemble_metrics import (
     lowest_maximum_confidence,
     max_min_confidence_margin,
     max_min_confidence_ratio,
+    ensemble_classification_entropy,
 )
 from al_strats.uncertainty_metrics import least_confidence
 from tests.common import approx
@@ -14,7 +15,7 @@ from tests.common import approx
 CONFIDENCE_3D = [  # Shape: (items, classes, models)
     [[0.7, 0.8], [0.1, 0.1], [0.2, 0.1]],
     [[0.5, 0.2], [0.4, 0.1], [0.1, 0.7]],
-    [[0.33, 0.9], [0.33, 0.1], [0.34, 0.0]],
+    [[0.33, 0.9], [0.33, 0.09], [0.34, 0.01]],
 ]
 
 
@@ -42,3 +43,8 @@ def test_max_min_confidence_margin() -> None:
 def test_max_min_confidence_ratio() -> None:
     mmcr = max_min_confidence_ratio(CONFIDENCE_3D)
     assert approx(mmcr, [0.125, 0.286, 0.622], abs=1e-3)
+
+
+def test_ensemble_classification_entropy() -> None:
+    mmcr = ensemble_classification_entropy(CONFIDENCE_3D)
+    assert approx(mmcr, [2.079, 2.518, 2.101], abs=1e-3)
