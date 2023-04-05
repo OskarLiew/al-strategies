@@ -1,4 +1,4 @@
-from al_strats.uncertainty_metrics import (
+from al_strats.uncertainty_methods import (
     least_confidence,
     margin_of_confidence,
     ratio_of_confidence,

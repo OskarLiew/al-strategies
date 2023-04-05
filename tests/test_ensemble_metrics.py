@@ -1,6 +1,6 @@
 import numpy as np
 
-from al_strats.ensemble_metrics import (
+from al_strats.ensemble_methods import (
     UncertaintyRankSum,
     _rank_elements,
     lowest_maximum_confidence,
@@ -9,7 +9,7 @@ from al_strats.ensemble_metrics import (
     ensemble_classification_entropy,
     kl_max_divergence,
 )
-from al_strats.uncertainty_metrics import least_confidence
+from al_strats.uncertainty_methods import least_confidence
 from tests.common import approx, CONFIDENCE_3D
 
 
