@@ -1,6 +1,6 @@
 .PHONY: test
 test:
-	pytest
 	black .
-	mypy .
+	pytest
+	mypy --ignore-missing-imports .
 	pylint al_strats/ tests/
