@@ -1,5 +1,5 @@
-import numpy.typing as npt
 import numpy as np
+import numpy.typing as npt
 
 
 def least_confidence(confidence: npt.ArrayLike) -> npt.NDArray:

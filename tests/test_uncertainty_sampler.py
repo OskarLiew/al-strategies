@@ -1,17 +1,17 @@
-from al_strats.sampler import ConfidenceSampler
-from al_strats.uncertainty_methods import (
-    least_confidence,
-    margin_of_confidence,
-    ratio_of_confidence,
-    classification_entropy,
-)
 from al_strats.ensemble_methods import (
     UncertaintyRankSum,
+    ensemble_classification_entropy,
+    kl_max_divergence,
     lowest_maximum_confidence,
     max_min_confidence_margin,
     max_min_confidence_ratio,
-    ensemble_classification_entropy,
-    kl_max_divergence,
+)
+from al_strats.sampler import ConfidenceSampler
+from al_strats.uncertainty_methods import (
+    classification_entropy,
+    least_confidence,
+    margin_of_confidence,
+    ratio_of_confidence,
 )
 from tests.common import CONFIDENCE, CONFIDENCE_3D
 

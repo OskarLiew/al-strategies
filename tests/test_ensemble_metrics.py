@@ -3,14 +3,14 @@ import numpy as np
 from al_strats.ensemble_methods import (
     UncertaintyRankSum,
     _rank_elements,
+    ensemble_classification_entropy,
+    kl_max_divergence,
     lowest_maximum_confidence,
     max_min_confidence_margin,
     max_min_confidence_ratio,
-    ensemble_classification_entropy,
-    kl_max_divergence,
 )
 from al_strats.uncertainty_methods import least_confidence
-from tests.common import approx, CONFIDENCE_3D
+from tests.common import CONFIDENCE_3D, approx
 
 
 def test_uncertainty_rank_order() -> None:

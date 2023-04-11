@@ -1,8 +1,8 @@
 from al_strats.uncertainty_methods import (
+    classification_entropy,
     least_confidence,
     margin_of_confidence,
     ratio_of_confidence,
-    classification_entropy,
 )
 from tests.common import CONFIDENCE, approx
 

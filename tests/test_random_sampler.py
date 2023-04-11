@@ -1,4 +1,5 @@
 import numpy as np
+
 from al_strats.sampler import RandomSampler
 from tests.common import SEED
 

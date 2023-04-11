@@ -1,6 +1,6 @@
 from typing import Any, Callable, Protocol, Union
-import numpy as np
 
+import numpy as np
 import numpy.typing as npt
 from sklearn.metrics import pairwise_distances
 from sklearn.neighbors import NearestCentroid
@@ -31,8 +31,7 @@ class ClusterBasedSampler:
     ) -> npt.NDArray:
         self.clusterer.fit(data)
         cluster_labels = self.clusterer.predict(data)
-        sample_indices = self.strategy(data, cluster_labels, n_samples, **kwargs)
-        return sample_indices[:n_samples]
+        return self.strategy(data, cluster_labels, n_samples, **kwargs)
 
 
 def sample_cluster_centroids(
@@ -53,13 +52,14 @@ def sample_cluster_centroids(
             Defaults to "euclidean".
 
     Returns:
-        npt.NDArray: 1D array of sample indices
+        npt.NDArray: 1D array of sample indices (n_samples, )
     """
     data = np.atleast_2d(data)
     cluster_labels = np.atleast_1d(cluster_labels)
 
     centroids = _get_centroids(data, cluster_labels, metric)
     cluster_indices = np.unique(cluster_labels)
+    n_samples = min(n_samples, cluster_labels.shape[0])
     n_cluster_samples = _distribute_number(n_samples, len(cluster_indices))
 
     indices = np.arange(len(cluster_labels), dtype=int)
@@ -100,15 +100,17 @@ def sample_cluster_outliers(
             Defaults to "euclidean".
 
     Returns:
-        npt.NDArray: 1D array of sample indices
+        npt.NDArray: 1D array of sample indices (n_samples, )
     """
     data = np.atleast_2d(data)
     cluster_labels = np.atleast_1d(cluster_labels)
+
     centroids = _get_centroids(data, cluster_labels, metric)
     cluster_indices = np.unique(cluster_labels)
-    indices = np.arange(len(cluster_labels), dtype=int)
+    n_samples = min(n_samples, cluster_labels.shape[0])
     n_cluster_samples = _distribute_number(n_samples, len(cluster_indices))
 
+    indices = np.arange(len(cluster_labels), dtype=int)
     samples = []
     for i_cluster, centroid, n_samples_ in zip(
         cluster_indices, centroids, n_cluster_samples
@@ -143,11 +145,12 @@ def sample_random_cluster_members(
             Defaults to None.
 
     Returns:
-        npt.NDArray: 1D array of sample indices
+        npt.NDArray: 1D array of sample indices (n_samples, )
     """
     rng = np.random.default_rng(seed)
     cluster_labels = np.atleast_1d(cluster_labels)
     indices = np.arange(len(cluster_labels), dtype=int)
+    n_samples = min(n_samples, cluster_labels.shape[0])
 
     samples = []
     cluster_indices = np.unique(cluster_labels)

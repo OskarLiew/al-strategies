@@ -1,6 +1,7 @@
 from typing import Callable
-import numpy.typing as npt
+
 import numpy as np
+import numpy.typing as npt
 
 
 class UncertaintyRankSum:

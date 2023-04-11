@@ -1,6 +1,7 @@
 from typing import Any, List
-import pytest
+
 import numpy.typing as npt
+import pytest
 
 SEED = 42
 
