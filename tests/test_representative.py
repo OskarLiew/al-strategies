@@ -1,6 +1,6 @@
 import numpy as np
 from sklearn.datasets import make_classification
-from al_strats.representative import representativeness_score
+from al_strats.representative import RepresentativeSampler, representativeness_score
 from tests.common import SEED
 
 
@@ -17,3 +17,35 @@ def test_representativeness_score():
 
     representativeness = representativeness_score(data_unlab, data_train)
     assert np.argsort(-representativeness).tolist() == [5, 3, 0, 2, 4, 1]
+
+
+def test_representative_sampler():
+    data_unlab, data_train = make_data(SEED)
+
+    sampler = RepresentativeSampler(adaptive=False)
+    samples = sampler(data_unlab, data_train, 3)
+    assert samples.tolist() == [5, 3, 0]
+
+
+def test_representative_sampler_more_samples_than_items():
+    data_unlab, data_train = make_data(SEED)
+
+    sampler = RepresentativeSampler(adaptive=False)
+    samples = sampler(data_unlab, data_train, 100)
+    assert samples.tolist() == [5, 3, 0, 2, 4, 1]
+
+
+def test_representative_sampler_adaptive():
+    data_unlab, data_train = make_data(SEED)
+
+    sampler = RepresentativeSampler(adaptive=True)
+    samples = sampler(data_unlab, data_train, 3)
+    assert samples.tolist() == [5, 3, 2]
+
+
+def test_representative_sampler_adaptive_more_items_than_samples():
+    data_unlab, data_train = make_data(SEED)
+
+    sampler = RepresentativeSampler(adaptive=True)
+    samples = sampler(data_unlab, data_train, 100)
+    assert samples.tolist() == [5, 3, 2, 0, 1, 4]

@@ -15,7 +15,6 @@ def test_cluster_based_sampler() -> None:
     kmeans = KMeans(3, n_init="auto")
     sampler = ClusterBasedSampler(sample_cluster_centroids, kmeans)
     samples = sampler(data, n_samples=3)
-    print(samples)
     assert set(target[samples]) == {0, 1, 2}
 
 
